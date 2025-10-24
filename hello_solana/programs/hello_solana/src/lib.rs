@@ -6,7 +6,7 @@ declare_id!("3L2UUNCduXAZsk8qtKtaEewnQPww8NMVrsowXa5nnUwP");
 pub mod hello_solana {
     use super::*;
 
-    pub fn initialize(ctx: Context<Initialize>,name: String) -> Result<()> {
+    pub fn initialize(ctx: Context<Initialize>, name: String) -> Result<()> {
         msg!("Greetings from: {:?}", ctx.program_id);
         let greeting_account = &mut ctx.accounts.greeting_account;
         greeting_account.greeting = format!("Hello, {}!", name);
@@ -24,11 +24,14 @@ pub mod hello_solana {
 }
 
 #[derive(Accounts)]
+#[instruction(name: String)]
 pub struct Initialize<'info> {
     #[account(
         init,
         payer = user,
-        space = 8 + 32 + 200 ,
+        space = 8 + 32 + 200,
+        seeds = [b"greeting", name.as_bytes(), user.key().as_ref()],
+        bump
     )]
     pub greeting_account: Account<'info, GreetingAccount>,
 
@@ -39,8 +42,15 @@ pub struct Initialize<'info> {
 
 #[derive(Accounts)]
 pub struct UpdateGreeting<'info> {
-    #[account(mut)]
+    #[account(
+        mut,
+        seeds = [b"greeting", greeting_account.name.as_bytes(), user.key().as_ref()],
+        bump
+    )]
     pub greeting_account: Account<'info, GreetingAccount>,
+
+    #[account(mut)]
+    pub user: Signer<'info>,
 }
 
 #[account]
