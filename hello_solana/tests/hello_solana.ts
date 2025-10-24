@@ -15,6 +15,7 @@ describe("hello_solana", () => {
     await airdrop(user.publicKey);
   });
 
+  
   it("Is initialized!", async () => {
     const name = "John Doe";
     // get PDA for initialize account
