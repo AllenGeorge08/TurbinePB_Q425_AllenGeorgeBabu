@@ -1,0 +1,9 @@
+[submodule "Turbin3-Env-Setup"]
+	path = Turbin3-Env-Setup
+	url = https://github.com/AllenGeorge08/Turbin3-Env-Setup
+[submodule "Week2Tasks/Turbin3-Escrow"]
+	path = Week2Tasks/Turbin3-Escrow
+	url = https://github.com/AllenGeorge08/Turbin3-Escrow.git
+[submodule "Week2Tasks/Vault-Nexora"]
+	path = Week2Tasks/Vault-Nexora
+	url = https://github.com/AllenGeorge08/Vault-Nexora.git

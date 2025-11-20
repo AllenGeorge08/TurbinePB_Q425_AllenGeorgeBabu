@@ -1,0 +1,15 @@
+# Rust
+target/
+**/target/
+Cargo.lock
+
+# Test data and logs
+**/test-ledger/
+**/*.log
+*.log
+
+# Debug builds
+**/debug/
+
+# RocksDB
+**/rocksdb/
