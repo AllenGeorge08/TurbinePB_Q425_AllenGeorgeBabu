@@ -7,9 +7,10 @@ use std::fmt::format;
 // "hello" -> "Hello"
 fn capitalize_first(input: &str) -> String {
     let mut chars = input.chars(); //e Strings in rust aren't directly indexable because of utf-8. So we use .chars() to get an iterator over characters..
-    match chars.next() { //e We take the first character, next() returns Option<char> (either Some(char) or None)
+    match chars.next() {
+        //e We take the first character, next() returns Option<char> (either Some(char) or None)
         None => String::new(),
-        Some(first) => format!("{}{}",first.to_uppercase(),chars.as_str()) //e There should be no space between spaceholders
+        Some(first) => format!("{}{}", first.to_uppercase(), chars.as_str()), //e There should be no space between spaceholders
     }
 }
 
@@ -19,7 +20,7 @@ fn capitalize_first(input: &str) -> String {
 fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
     // ???
     let result = words.iter().map(|x| capitalize_first(x)).collect();
-    result 
+    result
 }
 
 // TODO: Apply the `capitalize_first` function again to a slice of string
@@ -28,20 +29,19 @@ fn capitalize_words_vector(words: &[&str]) -> Vec<String> {
 fn capitalize_words_string(words: &[&str]) -> String {
     // ???
     let result = words.iter().map(|x| capitalize_first(x)).collect();
-    result 
+    result
 }
 
 fn main() {
     // You can optionally experiment here.
     let small_string = "allen";
     let result = capitalize_first(small_string);
-    println!("{}",result);
+    println!("{}", result);
 
-    let words = vec!["hello"," ", "world"];
+    let words = vec!["hello", " ", "world"];
 
     let capitalize_words_string_result = capitalize_words_string(&words);
-    println!("{}",capitalize_words_string_result);
-
+    println!("{}", capitalize_words_string_result);
 }
 
 #[cfg(test)]

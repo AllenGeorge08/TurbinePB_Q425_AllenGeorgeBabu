@@ -15,7 +15,7 @@ fn main() {
             let start = Instant::now();
             thread::sleep(Duration::from_millis(250));
             println!("Thread {i} done");
-            start.elapsed().as_millis()
+            start.elapsed().as_millis() //e Millis is milli seconds i.e u128
         });
         handles.push(handle);
     }
@@ -24,6 +24,8 @@ fn main() {
     for handle in handles {
         // TODO: Collect the results of all threads into the `results` vector.
         // Use the `JoinHandle` struct which is returned by `thread::spawn`.
+        let value = handle.join().unwrap();
+        results.push(value);
     }
 
     if results.len() != 10 {
@@ -32,6 +34,6 @@ fn main() {
 
     println!();
     for (i, result) in results.into_iter().enumerate() {
-        println!("Thread {i} took {result}ms");
+        println!("Thread {i} took {result} ms");
     }
 }

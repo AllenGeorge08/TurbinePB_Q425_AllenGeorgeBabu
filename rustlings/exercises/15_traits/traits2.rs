@@ -13,9 +13,9 @@ impl AppendBar for Vec<String> {
 }
 
 fn main() {
-    let vector1: Vec<String> = vec!["String".to_string(),"Idk".to_string()].append_bar();
-    
-    println!("{:?}",vector1);
+    let vector1: Vec<String> = vec!["String".to_string(), "Idk".to_string()].append_bar();
+
+    println!("{:?}", vector1);
     // You can optionally experiment here.
 }
 

@@ -12,8 +12,22 @@
 // the quantity bought.
 // fn calculate_price_of_apples(???) -> ??? { ??? }
 
+
 fn main() {
     // You can optionally experiment here.
+    let price = calculate_price_of_apples(6);
+    println!("{price}");
+}
+
+fn calculate_price_of_apples(number_of_apples: u128) -> u128{
+    let mut price = 2;
+
+    if number_of_apples > 40{
+        price = 1;
+        return number_of_apples *price 
+    }else{
+        price * number_of_apples
+    }
 }
 
 // Don't change the tests!

@@ -15,6 +15,11 @@ fn generate_nametag_text(name: String) -> Result<String, String> {
 
 fn main() {
     // You can optionally experiment here.
+    // let result =  generate_nametag_text("".to_string()).as_ref().map_err(|e| e.as_str()); //e borrowing out of a temporary variable creates a dangling reference.
+    // i.e generate_nametag_text returns a result<string,string> which is a temporary value and we cannot create a reference to that
+    let result = generate_nametag_text(String::from(""));
+    let answer = result.as_ref().map_err(|e| e.as_str());
+    println!("{:?}", answer);
 }
 
 #[cfg(test)]

@@ -17,10 +17,10 @@ fn compare_license_types(software1: impl Licensed, software2: impl Licensed) -> 
 
 fn main() {
     // You can optionally experiment here.
-    let software1 =  SomeSoftware;
-    let software2 =  OtherSoftware;
+    let software1 = SomeSoftware;
+    let software2 = OtherSoftware;
 
-    println!("{:?}",compare_license_types(software1, software2));
+    println!("{:?}", compare_license_types(software1, software2));
 }
 
 #[cfg(test)]

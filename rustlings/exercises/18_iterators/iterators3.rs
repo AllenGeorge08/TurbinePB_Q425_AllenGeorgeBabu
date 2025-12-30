@@ -15,49 +15,52 @@ enum DivisionError {
 // TODO: Calculate `a` divided by `b` if `a` is evenly divisible by `b`.
 // Otherwise, return a suitable error.
 fn divide(a: i64, b: i64) -> Result<i64, DivisionError> {
-  if b == 0{
-    Err(DivisionError::DivideByZero)
-  } else if a == i64::MIN && b == -1 {
-    Err(DivisionError::IntegerOverflow)   
-} else if a%b != 0 {
-    Err(DivisionError::NotDivisible)
-}  else if a == 0 && b != 0{
-    Ok(0)
-}
-else {
-    Ok(a/b)
-  }
-
+    if b == 0 {
+        Err(DivisionError::DivideByZero)
+    } else if a == i64::MIN && b == -1 {
+        Err(DivisionError::IntegerOverflow)
+    } else if a % b != 0 {
+        Err(DivisionError::NotDivisible)
+    } else if a == 0 && b != 0 {
+        Ok(0)
+    } else {
+        Ok(a / b)
+    }
 }
 // TODO: Add the correct return type and complete the function body.
 // Desired output: `Ok([1, 11, 1426, 3])`
-fn result_with_list() -> Result<[i32;4], DivisionError> {
+fn result_with_list() -> Result<[i32; 4], DivisionError> {
     let numbers = [27, 297, 38502, 81];
-    let division_results: Result<Vec<i32>,DivisionError>  = numbers.iter().map(|n|  divide(*n as i64, 27).map(|x| x as i32)).collect(); //e result with lisst collects all results into one Result of a collection..
+    let division_results: Result<Vec<i32>, DivisionError> = numbers
+        .iter()
+        .map(|n| divide(*n as i64, 27).map(|x| x as i32))
+        .collect(); //e result with lisst collects all results into one Result of a collection..
     //e collect() automatically converts Iterator<Item=Result<T,E>> -> Result<Collection<T>,E>.
-    let arr : Result<[i32;4],DivisionError> = division_results?.try_into().map_err(|_| DivisionError::NotDivisible); //e Into iter returnss owned values, we want to work with references that's why thiss..
+    let arr: Result<[i32; 4], DivisionError> = division_results?
+        .try_into()
+        .map_err(|_| DivisionError::NotDivisible); //e Into iter returnss owned values, we want to work with references that's why thiss..
     arr
 }
 
-
 // TODO: Add the correct return type and complete the function body.
 // // Desired output: `[Ok(1), Ok(11), Ok(1426), Ok(3)]`
-fn list_of_results() -> [Result<i32,DivisionError>;4]{
+fn list_of_results() -> [Result<i32, DivisionError>; 4] {
     let numbers = [27, 297, 38502, 81];
-        // Map each number to a Result<i32, DivisionError>
-    let results: Vec<Result<i32, DivisionError>> = numbers.iter().map(|&n| divide(n as i64, 27).map(|x| x as i32)).collect();
+    // Map each number to a Result<i32, DivisionError>
+    let results: Vec<Result<i32, DivisionError>> = numbers
+        .iter()
+        .map(|&n| divide(n as i64, 27).map(|x| x as i32))
+        .collect();
     results.try_into().expect("Incorrect array length")
 }
 
 fn main() {
     // You can optionally experiment here.
-    let result = result_with_list(); 
-    println!("{:#?}",result);
+    let result = result_with_list();
+    println!("{:#?}", result);
 
     let list_of_results = list_of_results();
-    println!("{:?}",list_of_results);
-
-
+    println!("{:?}", list_of_results);
 }
 
 #[cfg(test)]

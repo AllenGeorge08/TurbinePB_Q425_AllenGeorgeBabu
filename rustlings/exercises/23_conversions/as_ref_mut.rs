@@ -2,27 +2,45 @@
 // about them at https://doc.rust-lang.org/std/convert/trait.AsRef.html and
 // https://doc.rust-lang.org/std/convert/trait.AsMut.html, respectively.
 
+use core::num;
+use std::{ops::Mul, process::Output};
+
 // Obtain the number of bytes (not characters) in the given argument
 // (`.len()` returns the number of bytes in a string).
 // TODO: Add the `AsRef` trait appropriately as a trait bound.
-fn byte_counter<T>(arg: T) -> usize {
+fn byte_counter<T: AsRef<[u8]>>(arg: T) -> usize {
     arg.as_ref().len()
 }
 
 // Obtain the number of characters (not bytes) in the given argument.
 // TODO: Add the `AsRef` trait appropriately as a trait bound.
-fn char_counter<T>(arg: T) -> usize {
+fn char_counter<T: AsRef<str>>(arg: T) -> usize {
     arg.as_ref().chars().count()
 }
 
 // Squares a number using `as_mut()`.
 // TODO: Add the appropriate trait bound.
-fn num_sq<T>(arg: &mut T) {
+
+//Inside the std lib
+// impl<T: ?Sized> AsMut<T> for Box<T> {
+//     fn as_mut(&mut self) -> &mut T {
+//         &mut **self
+//     }
+// }
+
+
+fn num_sq<T>(arg: &mut T) where T: AsMut<u32>{
     // TODO: Implement the function body.
+    //(&mut Box<u32>).as_mut() -> &mut u32 here in case of the test...
+    let x = *arg.as_mut();
+    *arg.as_mut() = x*x ;
 }
 
 fn main() {
     // You can optionally experiment here.
+    let mut x =  Box::new(3);
+    num_sq(&mut x);
+    println!("Value of x after the num_squaring is: {}",x);
 }
 
 #[cfg(test)]

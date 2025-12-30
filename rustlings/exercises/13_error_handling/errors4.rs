@@ -11,12 +11,22 @@ impl PositiveNonzeroInteger {
     fn new(value: i64) -> Result<Self, CreationError> {
         // TODO: This function shouldn't always return an `Ok`.
         // Read the tests below to clarify what should be returned.
+        if value < 0 {
+            return Err(CreationError::Negative);
+        } else if value == 0 {
+            return Err(CreationError::Zero);
+        }
         Ok(Self(value as u64))
     }
 }
 
 fn main() {
     // You can optionally experiment here.
+    let answer = PositiveNonzeroInteger::new(10).unwrap();
+    println!("{:?}", answer);
+
+    let negative_answer = PositiveNonzeroInteger::new(-10).unwrap_err();
+    println!("{:?}", negative_answer);
 }
 
 #[cfg(test)]
