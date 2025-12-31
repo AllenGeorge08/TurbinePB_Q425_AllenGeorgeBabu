@@ -2,7 +2,7 @@
 // about them at https://doc.rust-lang.org/std/convert/trait.AsRef.html and
 // https://doc.rust-lang.org/std/convert/trait.AsMut.html, respectively.
 
-use core::num;
+use std::num;
 use std::{ops::Mul, process::Output};
 
 // Obtain the number of bytes (not characters) in the given argument

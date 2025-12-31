@@ -5,7 +5,11 @@
 fn average(values: &[f64]) -> f64 {
     let total = values.iter().sum::<f64>();
     // TODO: Make a conversion before dividing.
-    total / values.len()
+    let total_len = total;
+    let values_len = values.len() as f64;
+    let result = total/values_len;
+    result
+    // total / values.len()
 }
 
 fn main() {

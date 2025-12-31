@@ -34,7 +34,31 @@ impl Default for Person {
 // 5. Parse the second element from the split operation into a `u8` as the age.
 // 6. If parsing the age fails, return the default of `Person`.
 impl From<&str> for Person {
-    fn from(s: &str) -> Self {}
+    fn from(s: &str) -> Self {
+        let parts: Vec<&str> = s.split(',').collect();
+
+        let default = Person::default();
+
+        if parts.len() != 2{
+            return default
+        }
+
+        let name = parts[0].trim();  //e trim removes whitespaces and stuff..
+        
+        if name.is_empty(){
+            return default
+        }
+        
+        let age_str: &str  = parts[1].trim();
+
+        let age: u8 = match  age_str.parse().into(){
+            Ok(age) => age ,
+            Err(_) => return Person::default() 
+        };
+
+        return Person { name: name.to_string(), age}
+
+    }
 }
 
 fn main() {
@@ -65,6 +89,7 @@ mod tests {
         assert_eq!(p.age, 30);
     }
 
+  
     #[test]
     fn test_good_convert() {
         let p = Person::from("Mark,20");
@@ -72,6 +97,7 @@ mod tests {
         assert_eq!(p.age, 20);
     }
 
+    
     #[test]
     fn test_bad_age() {
         let p = Person::from("Mark,twenty");
@@ -93,6 +119,7 @@ mod tests {
         assert_eq!(p.age, 30);
     }
 
+    
     #[test]
     fn test_missing_name() {
         let p: Person = Person::from(",1");
@@ -128,3 +155,6 @@ mod tests {
         assert_eq!(p.age, 30);
     }
 }
+
+
+
